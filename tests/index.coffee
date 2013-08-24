@@ -35,9 +35,9 @@ describe "index", ->
 					id = res.id
 					done()
 
-		describe "#get", ->
+		describe "#retrieve", ->
 			it "should get charged info", (done)->
-				webpay.charge.get
+				webpay.charge.retrieve
 					id: id
 				.done (res)->
 					res.id.should.eql id
