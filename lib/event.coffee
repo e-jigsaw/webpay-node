@@ -4,7 +4,7 @@ request = require "./request"
 class Event
 	constructor: (@api_key)->
 
-	get: (req)->
+	retrieve: (req)->
 		deferred = Q.defer()
 
 		deferred.reject new Error "ID is required" if !req?.id?

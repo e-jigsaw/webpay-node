@@ -161,9 +161,9 @@ describe "index", ->
 					id = res.data[0].id
 					done()
 
-		describe "#get", ->
+		describe "#retrieve", ->
 			it "should get event infomation", (done)->
-				webpay.event.get
+				webpay.event.retrieve
 					id: id
 				.done (res)->
 					res.id.should.eql id
