@@ -174,8 +174,8 @@ describe "index", ->
 		id = null
 		before -> webpay = new WebPay "test_secret_eHn4TTgsGguBcW764a2KA8Yd"
 
-		describe "#get", ->
+		describe "#retrieve", ->
 			it "should get account infomation", (done)->
-				webpay.account.get().done (res)->
+				webpay.account.retrieve().done (res)->
 					res.should.have.property "id"
 					done()
