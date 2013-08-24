@@ -4,7 +4,7 @@ request = require "./request"
 class Account
 	constructor: (@api_key)->
 
-	get: ->
+	retrieve: ->
 		deferred = Q.defer()
 
 		request

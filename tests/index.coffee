@@ -35,9 +35,9 @@ describe "index", ->
 					id = res.id
 					done()
 
-		describe "#get", ->
+		describe "#retrieve", ->
 			it "should get charged info", (done)->
-				webpay.charge.get
+				webpay.charge.retrieve
 					id: id
 				.done (res)->
 					res.id.should.eql id
@@ -73,9 +73,9 @@ describe "index", ->
 					res.id.should.eql id
 					done()
 
-		describe "#list", ->
+		describe "#all", ->
 			it "should get charged list", (done)->
-				webpay.charge.list().done (res)->
+				webpay.charge.all().done (res)->
 					res.should.have.property "count"
 					done()
 
@@ -91,17 +91,17 @@ describe "index", ->
 					id = res.id
 					done()
 
-		describe "#get", ->
+		describe "#retrieve", ->
 			it "should get customer infomation", (done)->
-				webpay.customer.get
+				webpay.customer.retrieve
 					id: id
 				.done (res)->
 					res.id.should.eql id
 					done()
 
-		describe "#update", ->
+		describe "#save", ->
 			it "should update customer infomation", (done)->
-				webpay.customer.update
+				webpay.customer.save
 					id: id
 				.done (res)->
 					res.id.should.eql id
@@ -116,9 +116,9 @@ describe "index", ->
 					res.deleted.should.be.true
 					done()
 
-		describe "#list", ->
+		describe "#all", ->
 			it "should get customers list", (done)->
-				webpay.customer.list().done (res)->
+				webpay.customer.all().done (res)->
 					res.should.have.property "count"
 					done()
 
@@ -141,9 +141,9 @@ describe "index", ->
 					id = res.id
 					done()
 
-		describe "#get", ->
+		describe "#retrieve", ->
 			it "should get token infomation", (done)->
-				webpay.token.get
+				webpay.token.retrieve
 					id: id
 				.done (res)->
 					res.id.should.eql id
@@ -154,16 +154,16 @@ describe "index", ->
 		id = null
 		before -> webpay = new WebPay "test_secret_eHn4TTgsGguBcW764a2KA8Yd"
 
-		describe "#list", ->
+		describe "#all", ->
 			it "should get events list", (done)->
-				webpay.event.list().done (res)->
+				webpay.event.all().done (res)->
 					res.data[0].should.have.property "id"
 					id = res.data[0].id
 					done()
 
-		describe "#get", ->
+		describe "#retrieve", ->
 			it "should get event infomation", (done)->
-				webpay.event.get
+				webpay.event.retrieve
 					id: id
 				.done (res)->
 					res.id.should.eql id
@@ -174,8 +174,8 @@ describe "index", ->
 		id = null
 		before -> webpay = new WebPay "test_secret_eHn4TTgsGguBcW764a2KA8Yd"
 
-		describe "#get", ->
+		describe "#retrieve", ->
 			it "should get account infomation", (done)->
-				webpay.account.get().done (res)->
+				webpay.account.retrieve().done (res)->
 					res.should.have.property "id"
 					done()

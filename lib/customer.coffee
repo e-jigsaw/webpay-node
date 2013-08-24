@@ -29,7 +29,7 @@ class Customer
 
 		deferred.promise
 
-	get: (req)->
+	retrieve: (req)->
 		deferred = Q.defer()
 		
 		deferred.reject new Error "ID is required" if !req?.id?
@@ -44,7 +44,7 @@ class Customer
 
 		deferred.promise
 
-	update: (req)->
+	save: (req)->
 		deferred = Q.defer()
 
 		deferred.reject new Error "ID is required" if !req?.id?
@@ -84,7 +84,7 @@ class Customer
 
 		deferred.promise
 
-	list: (req)->
+	all: (req)->
 		deferred = Q.defer()
 
 		req = {} if !req?
