@@ -91,9 +91,9 @@ describe "index", ->
 					id = res.id
 					done()
 
-		describe "#get", ->
+		describe "#retrieve", ->
 			it "should get customer infomation", (done)->
-				webpay.customer.get
+				webpay.customer.retrieve
 					id: id
 				.done (res)->
 					res.id.should.eql id
