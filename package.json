@@ -11,8 +11,9 @@
   "license": "MIT",
   "devDependencies": {
     "grunt-contrib-coffee": "~0.7.0",
-    "grunt-mocha-test": "0.6.3",
-    "grunt": "~0.4.1"
+    "grunt-mocha-test": "~0.6.3",
+    "grunt": "~0.4.1",
+    "should": "~1.2.2"
   },
   "dependencies": {
     "q": "~0.9.6",
