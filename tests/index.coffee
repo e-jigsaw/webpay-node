@@ -116,9 +116,9 @@ describe "index", ->
 					res.deleted.should.be.true
 					done()
 
-		describe "#list", ->
+		describe "#all", ->
 			it "should get customers list", (done)->
-				webpay.customer.list().done (res)->
+				webpay.customer.all().done (res)->
 					res.should.have.property "count"
 					done()
 
