@@ -1,2 +1,4 @@
-*.js
+*.coffee
 node_modules
+.travis.yml
+tests/
