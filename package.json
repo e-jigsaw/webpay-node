@@ -1,5 +1,5 @@
 {
-  "name": "webpay-node",
+  "name": "webpay",
   "version": "0.0.1",
   "description": "WebPay Node.js bindings https://webpay.jp",
   "main": "index.js",
