@@ -1,0 +1,20 @@
+{
+  "name": "webpay-node",
+  "version": "0.0.1",
+  "description": "WebPay Node.js bindings https://webpay.jp",
+  "main": "index.js",
+  "scripts": {
+    "test": "grunt coffee mochaTest"
+  },
+  "repository": "git@github.com:e-jigsaw/webpay-node.git",
+  "author": "jigsaw <m@jgs.me>",
+  "license": "MIT",
+  "devDependencies": {
+    "grunt-contrib-coffee": "~0.7.0",
+    "grunt": "~0.4.1"
+  },
+  "dependencies": {
+    "q": "~0.9.6",
+    "qs": "~0.6.5"
+  }
+}
