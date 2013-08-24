@@ -99,9 +99,9 @@ describe "index", ->
 					res.id.should.eql id
 					done()
 
-		describe "#update", ->
+		describe "#save", ->
 			it "should update customer infomation", (done)->
-				webpay.customer.update
+				webpay.customer.save
 					id: id
 				.done (res)->
 					res.id.should.eql id

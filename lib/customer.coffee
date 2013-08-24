@@ -44,7 +44,7 @@ class Customer
 
 		deferred.promise
 
-	update: (req)->
+	save: (req)->
 		deferred = Q.defer()
 
 		deferred.reject new Error "ID is required" if !req?.id?
