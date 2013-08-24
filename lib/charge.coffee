@@ -92,7 +92,7 @@ class Charge
 
 		deferred.promise
 
-	list: (req)->
+	all: (req)->
 		deferred = Q.defer()
 
 		req = {} if !req?

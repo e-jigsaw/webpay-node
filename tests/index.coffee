@@ -73,9 +73,9 @@ describe "index", ->
 					res.id.should.eql id
 					done()
 
-		describe "#list", ->
+		describe "#all", ->
 			it "should get charged list", (done)->
-				webpay.charge.list().done (res)->
+				webpay.charge.all().done (res)->
 					res.should.have.property "count"
 					done()
 
