@@ -154,9 +154,9 @@ describe "index", ->
 		id = null
 		before -> webpay = new WebPay "test_secret_eHn4TTgsGguBcW764a2KA8Yd"
 
-		describe "#list", ->
+		describe "#all", ->
 			it "should get events list", (done)->
-				webpay.event.list().done (res)->
+				webpay.event.all().done (res)->
 					res.data[0].should.have.property "id"
 					id = res.data[0].id
 					done()

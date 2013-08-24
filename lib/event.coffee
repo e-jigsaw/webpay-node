@@ -19,7 +19,7 @@ class Event
 
 		deferred.promise
 
-	list: (req)->
+	all: (req)->
 		deferred = Q.defer()
 
 		req = {} if !req?
