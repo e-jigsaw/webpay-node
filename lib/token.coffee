@@ -25,7 +25,7 @@ class Token
 
 		deferred.promise
 
-	get: (req)->
+	retrieve: (req)->
 		deferred = Q.defer()
 
 		deferred.reject new Error "ID is required" if !req?.id?
