@@ -18,5 +18,13 @@
   "dependencies": {
     "q": "~0.9.6",
     "qs": "~0.6.5"
-  }
+  },
+  "homepage": "http://github.com/e-jigsaw",
+  "bugs": {
+    "url": "http://github.com/e-jigsaw/webpay-node/issues"
+  },
+  "keywords": [
+    "webpay",
+    "payment"
+  ]
 }
