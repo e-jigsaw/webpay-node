@@ -2,7 +2,7 @@ Q = require "q"
 request = require "./request"
 
 class Token
-	constructor: (@api_key)->
+	constructor: (@api_key, res)-> @[key] = value for key, value of res if res?
 
 	create: (req)->
 		deferred = Q.defer()
@@ -13,30 +13,32 @@ class Token
 				attr.card = req
 			else
 				deferred.reject new Error "Invalid card infomation"
+		else
+			deferred.reject new Error "Card infomation is required"
 
 		request
 			method: "POST"
 			path: "tokens"
 			attr: attr
 			api_key: @api_key
-		, (err, res)->
+		, (err, res)=>
 			deferred.reject err if err?
-			deferred.resolve res
+			deferred.resolve new Token @api_key, res
 
 		deferred.promise
 
-	retrieve: (req)->
+	retrieve: (id)->
 		deferred = Q.defer()
 
-		deferred.reject new Error "ID is required" if !req?.id?
+		deferred.reject new Error "ID is required" if !id?
 
 		request
 			method: "GET"
-			path: "tokens/#{req.id}"
+			path: "tokens/#{id}"
 			api_key: @api_key
 		, (err, res)->
 			deferred.reject err if err?
-			deferred.resolve res
+			deferred.resolve new Token @api_key, res
 
 		deferred.promise
 

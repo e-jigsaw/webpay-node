@@ -133,17 +133,15 @@ describe "index", ->
 
 		describe "#create", ->
 			it "should create token", (done)->
-				webpay.token.create(testCard).done (res)->
-					res.should.have.property "id"
-					id = res.id
+				webpay.token.create(testCard).done (token)->
+					token.should.have.property "id"
+					id = token.id
 					done()
 
 		describe "#retrieve", ->
 			it "should get token infomation", (done)->
-				webpay.token.retrieve
-					id: id
-				.done (res)->
-					res.id.should.eql id
+				webpay.token.retrieve(id).done (token)->
+					token.id.should.eql id
 					done()
 
 	describe "event", ->
