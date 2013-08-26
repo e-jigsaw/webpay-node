@@ -35,45 +35,47 @@ describe "index", ->
 		
 		describe "#create", ->
 			it "should send new charge", (done)->
-				webpay.charge.create(testCustomer).done (res)->
-					res.paid.should.be.true
-					id = res.id
+				webpay.charge.create(testCustomer).done (charge)->
+					charge.paid.should.be.true
+					id = charge.id
 					done()
 
 		describe "#retrieve", ->
 			it "should get charged info", (done)->
 				webpay.charge.retrieve
 					id: id
-				.done (res)->
-					res.id.should.eql id
+				.done (charge)->
+					charge.id.should.eql id
 					done()
 
 		describe "#refund", ->
 			it "should refund charge", (done)->
-				webpay.charge.refund
+				webpay.charge.retrieve
 					id: id
-				.done (res)->
-					res.id.should.eql id
+				.then (charge)-> charge.refund()
+				.done (charge)->
+					charge.id.should.eql id
 					done()
 
 		describe "#capture", ->
 			before (done)->
 				captureTestCustomer = testCustomer
 				captureTestCustomer.capture = false
-				webpay.charge.create(captureTestCustomer).done (res)->
-					id = res.id
+				webpay.charge.create(captureTestCustomer).done (charge)->
+					id = charge.id
 					done()
 			it "should captured charge", (done)->
-				webpay.charge.capture
+				webpay.charge.retrieve
 					id: id
-				.done (res)->
-					res.id.should.eql id
+				.then (charge)-> charge.capture()
+				.done (charge)->
+					charge.id.should.eql id
 					done()
 
 		describe "#all", ->
 			it "should get charged list", (done)->
-				webpay.charge.all().done (res)->
-					res.should.have.property "count"
+				webpay.charge.all().done (charges)->
+					charges.object.should.eql "list"
 					done()
 
 	describe "customer", ->

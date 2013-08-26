@@ -2,9 +2,9 @@ Q = require "q"
 request = require "./request"
 
 class Charge
-	constructor: (@api_key)->
+	constructor: (@api_key, res)-> @[key] = value for key, value of res if res?
 
-	create: (req)=>
+	create: (req)->
 		deferred = Q.defer()
 
 		attr =
@@ -30,14 +30,15 @@ class Charge
 					deferred.reject new Error "Card param is required"
 		else
 			deferred.reject new Error "Customer or card is required"
+
 		request
 			method: "POST"
 			path: "charges"
 			attr: attr
 			api_key: @api_key
-		, (err, res)->
+		, (err, res)=>
 			deferred.reject err if err?
-			deferred.resolve res
+			deferred.resolve new Charge @api_key, res
 
 		deferred.promise
 
@@ -50,45 +51,47 @@ class Charge
 			method: "GET"
 			path: "charges/#{req.id}"
 			api_key: @api_key
-		, (err, res)->
+		, (err, res)=>
 			deferred.reject err if err?
-			deferred.resolve res
+			deferred.resolve new Charge @api_key, res
 
 		deferred.promise
 
 	refund: (req)->
 		deferred = Q.defer()
 
-		deferred.reject new Error "ID is required" if !req?.id?
+		req = {} if !req?
+
 		attr = {}
 		attr.amount = req.amount if req.amount?
 
 		request
 			method: "POST"
-			path: "charges/#{req.id}/refund"
+			path: "charges/#{@id}/refund"
 			attr: attr
 			api_key: @api_key
-		, (err, res)->
+		, (err, res)=>
 			deferred.reject err if err?
-			deferred.resolve res
+			deferred.resolve new Charge @api_key, res
 
 		deferred.promise
 
 	capture: (req)->
 		deferred = Q.defer()
 
-		deferred.reject new Error "ID is required" if !req?.id?
+		req = {} if !req?
+
 		attr = {}
 		attr.amount = req.amount if req.amount?
 
 		request
 			method: "POST"
-			path: "charges/#{req.id}/capture"
+			path: "charges/#{@id}/capture"
 			attr: attr
 			api_key: @api_key
-		, (err, res)->
+		, (err, res)=>
 			deferred.reject err if err?
-			deferred.resolve res
+			deferred.resolve new Charge @api_key, res
 
 		deferred.promise
 
@@ -108,9 +111,15 @@ class Charge
 			path: "charges"
 			attr: attr
 			api_key: @api_key
-		, (err, res)->
+		, (err, res)=>
 			deferred.reject err if err?
-			deferred.resolve res
+			data = res.data
+			delete res.data
+			charges = {}
+			charges[key] = value for key, value of res
+			charges.data = for charge in data
+				new Charge @api_key, charge
+			deferred.resolve charges
 
 		deferred.promise
 
