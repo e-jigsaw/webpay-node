@@ -151,17 +151,15 @@ describe "index", ->
 
 		describe "#all", ->
 			it "should get events list", (done)->
-				webpay.event.all().done (res)->
-					res.data[0].should.have.property "id"
-					id = res.data[0].id
+				webpay.event.all().done (events)->
+					events.data[0].should.have.property "id"
+					id = events.data[0].id
 					done()
 
 		describe "#retrieve", ->
 			it "should get event infomation", (done)->
-				webpay.event.retrieve
-					id: id
-				.done (res)->
-					res.id.should.eql id
+				webpay.event.retrieve(id).done (event)->
+					event.id.should.eql id
 					done()
 
 	describe "account", ->
