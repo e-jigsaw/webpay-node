@@ -2,10 +2,24 @@ WebPay = require "../index"
 should = require "should"
 
 describe "index", ->
+	testCard =
+		number: "4242-4242-4242-4242"
+		exp_month: 11
+		exp_year: 2014
+		cvc: 123
+		name: "KEI KUBO"
+	
+	testCustomer =
+		amount: 400
+		currency: "jpy"
+		card: testCard
+
+	testAPIKey = "test_secret_eHn4TTgsGguBcW764a2KA8Yd"
+
 	describe "constructor", ->
 		it "should generate instance", ->
-			webpay = new WebPay "test_secret_eHn4TTgsGguBcW764a2KA8Yd"
-			webpay.api_key.should.eql "test_secret_eHn4TTgsGguBcW764a2KA8Yd"
+			webpay = new WebPay testAPIKey
+			webpay.api_key.should.eql testAPIKey
 		
 		it "should throw error when param is undefined", ->
 			try
@@ -17,20 +31,11 @@ describe "index", ->
 	describe "charge", ->
 		webpay = null
 		id = null
-		before -> webpay = new WebPay "test_secret_eHn4TTgsGguBcW764a2KA8Yd"
+		before -> webpay = new WebPay testAPIKey
 		
 		describe "#create", ->
 			it "should send new charge", (done)->
-				webpay.charge.create
-					amount: 400
-					currency: "jpy"
-					card:
-						number: "4242-4242-4242-4242"
-						exp_month: 11
-						exp_year: 2014
-						cvc: 123
-						name: "KEI KUBO"
-				.done (res)->
+				webpay.charge.create(testCustomer).done (res)->
 					res.paid.should.be.true
 					id = res.id
 					done()
@@ -53,17 +58,9 @@ describe "index", ->
 
 		describe "#capture", ->
 			before (done)->
-				webpay.charge.create
-					amount: 400
-					currency: "jpy"
-					card:
-						number: "4242-4242-4242-4242"
-						exp_month: 11
-						exp_year: 2014
-						cvc: 123
-						name: "KEI KUBO"
-					capture: false
-				.done (res)->
+				captureTestCustomer = testCustomer
+				captureTestCustomer.capture = false
+				webpay.charge.create(captureTestCustomer).done (res)->
 					id = res.id
 					done()
 			it "should captured charge", (done)->
@@ -82,7 +79,7 @@ describe "index", ->
 	describe "customer", ->
 		webpay = null
 		id = null
-		before -> webpay = new WebPay "test_secret_eHn4TTgsGguBcW764a2KA8Yd"
+		before -> webpay = new WebPay testAPIKey
 
 		describe "#create", ->
 			it "should create customer", (done)->
@@ -125,18 +122,11 @@ describe "index", ->
 	describe "token", ->
 		webpay = null
 		id = null
-		before -> webpay = new WebPay "test_secret_eHn4TTgsGguBcW764a2KA8Yd"
+		before -> webpay = new WebPay testAPIKey
 
 		describe "#create", ->
 			it "should create token", (done)->
-				webpay.token.create
-					card:
-						number: "4242-4242-4242-4242"
-						exp_month: 11
-						exp_year: 2014
-						cvc: 123
-						name: "KEI KUBO"
-				.done (res)->
+				webpay.token.create(testCard).done (res)->
 					res.should.have.property "id"
 					id = res.id
 					done()
@@ -152,7 +142,7 @@ describe "index", ->
 	describe "event", ->
 		webpay = null
 		id = null
-		before -> webpay = new WebPay "test_secret_eHn4TTgsGguBcW764a2KA8Yd"
+		before -> webpay = new WebPay testAPIKey
 
 		describe "#all", ->
 			it "should get events list", (done)->
@@ -172,7 +162,7 @@ describe "index", ->
 	describe "account", ->
 		webpay = null
 		id = null
-		before -> webpay = new WebPay "test_secret_eHn4TTgsGguBcW764a2KA8Yd"
+		before -> webpay = new WebPay testAPIKey
 
 		describe "#retrieve", ->
 			it "should get account infomation", (done)->
