@@ -169,6 +169,6 @@ describe "index", ->
 
 		describe "#retrieve", ->
 			it "should get account infomation", (done)->
-				webpay.account.retrieve().done (res)->
-					res.should.have.property "id"
+				webpay.account.retrieve().done (account)->
+					account.should.have.property "id"
 					done()
