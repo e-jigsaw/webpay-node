@@ -85,31 +85,36 @@ describe "index", ->
 
 		describe "#create", ->
 			it "should create customer", (done)->
-				webpay.customer.create().done (res)->
-					res.should.have.property "id"
-					id = res.id
+				webpay.customer.create().done (customer)->
+					customer.should.have.property "id"
+					id = customer.id
 					done()
 
 		describe "#retrieve", ->
 			it "should get customer infomation", (done)->
 				webpay.customer.retrieve
 					id: id
-				.done (res)->
-					res.id.should.eql id
+				.done (customer)->
+					customer.id.should.eql id
 					done()
 
 		describe "#save", ->
 			it "should update customer infomation", (done)->
-				webpay.customer.save
+				webpay.customer.retrieve
 					id: id
-				.done (res)->
-					res.id.should.eql id
+				.then (customer)->
+					customer.email = "test@te.st"
+					customer.save()
+				.done (customer)->
+					customer.email.should.eql "test@te.st"
 					done()
 
 		describe "#delete", ->
 			it "should delete customer infomation", (done)->
-				webpay.customer.delete
+				webpay.customer.retrieve
 					id: id
+				.then (customer)->
+					customer.delete()
 				.done (res)->
 					res.id.should.eql id
 					res.deleted.should.be.true
@@ -117,8 +122,8 @@ describe "index", ->
 
 		describe "#all", ->
 			it "should get customers list", (done)->
-				webpay.customer.all().done (res)->
-					res.should.have.property "count"
+				webpay.customer.all().done (customers)->
+					customers.object.should.eql "list"
 					done()
 
 	describe "token", ->
