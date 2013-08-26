@@ -8,9 +8,9 @@ class Token
 		deferred = Q.defer()
 
 		attr = {}
-		if req.card?
-			if req.card.number? and req.card.exp_month? and req.card.exp_year? and req.card.cvc? and req.card.name?
-				attr.card = req.card
+		if req?
+			if req.number? and req.exp_month? and req.exp_year? and req.cvc? and req.name?
+				attr.card = req
 			else
 				deferred.reject new Error "Invalid card infomation"
 

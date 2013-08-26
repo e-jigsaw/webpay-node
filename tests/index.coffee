@@ -8,6 +8,7 @@ describe "index", ->
 		exp_year: 2014
 		cvc: 123
 		name: "KEI KUBO"
+	
 	testCustomer =
 		amount: 400
 		currency: "jpy"
