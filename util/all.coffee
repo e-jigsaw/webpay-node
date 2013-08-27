@@ -1,30 +1,30 @@
 Q = require "q"
 request = require "./request"
 
-module.exports = (params)->
+module.exports = (req)->
 	deferred = Q.defer()
 
-	params.req = {} if !params.req?
+	req = {} if !req?
 
 	attr = {}
-	attr.count = params.req.count if params.req.count?
-	attr.offset = params.req.offset if params.req.offset?
-	attr.created = params.req.created if params.req.created?
-	attr.customer = params.req.customer if params.req.customer?
+	attr.count = req.count if req.count?
+	attr.offset = req.offset if req.offset?
+	attr.created = req.created if req.created?
+	attr.customer = req.customer if req.customer?
 
 	request
 		method: "GET"
-		path: params.path
+		path: @path
 		attr: attr
-		api_key: params.api_key
-	, (err, res)->
+		api_key: @api_key
+	, (err, res)=>
 		deferred.reject err if err?
 		data = res.data
 		delete res.data
 		objects = {}
 		objects[key] = value for key, value of res
 		objects.data = for object in data
-			new params.Class params.api_key, object
+			new @Class @api_key, object
 		deferred.resolve objects
 
 	deferred.promise

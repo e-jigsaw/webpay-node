@@ -1,6 +1,5 @@
 Q = require "q"
 request = require "../util/request"
-all = require "../util/all"
 Base = require "./base"
 
 class Charge extends Base
@@ -83,12 +82,7 @@ class Charge extends Base
 
 		deferred.promise
 
-	all: (req)-> 
-		all
-			path: "charges"
-			api_key: @api_key
-			Class: Charge
-			req: req
+	all: require "../util/all"
 		
 
 module.exports = Charge
