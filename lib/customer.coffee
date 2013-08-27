@@ -4,8 +4,6 @@ all = require "../util/all"
 Base = require "./base"
 
 class Customer extends Base
-	constructor: (@api_key, res)-> @[key] = value for key, value of res if res?
-
 	create: (req)->
 		deferred = Q.defer()
 
