@@ -1,5 +1,6 @@
 Q = require "q"
 request = require "../util/request"
+all = require "../util/all"
 Base = require "./base"
 
 class Event extends Base
@@ -19,31 +20,10 @@ class Event extends Base
 		deferred.promise
 
 	all: (req)->
-		deferred = Q.defer()
-
-		req = {} if !req?
-
-		attr = {}
-		attr.count = req.count if req.count?
-		attr.offset = req.offset if req.offset?
-		attr.created = req.created if req.created?
-		attr.customer = req.customer if req.customer?
-
-		request
-			method: "GET"
+		all
 			path: "events"
-			attr: attr
 			api_key: @api_key
-		, (err, res)->
-			deferred.reject err if err?
-			data = res.data
-			delete res.data
-			events = {}
-			events[key] = value for key, value of res
-			events.data = for event in data
-				new Event @api_key, event
-			deferred.resolve events
-
-		deferred.promise
+			Class: Event
+			req: req
 
 module.exports = Event

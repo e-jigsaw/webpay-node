@@ -1,5 +1,6 @@
 Q = require "q"
 request = require "../util/request"
+all = require "../util/all"
 Base = require "./base"
 
 class Charge extends Base
@@ -94,32 +95,12 @@ class Charge extends Base
 
 		deferred.promise
 
-	all: (req)->
-		deferred = Q.defer()
-
-		req = {} if !req?
-
-		attr = {}
-		attr.count = req.count if req.count?
-		attr.offset = req.offset if req.offset?
-		attr.created = req.created if req.created?
-		attr.customer = req.customer if req.customer?
-
-		request
-			method: "GET"
+	all: (req)-> 
+		all
 			path: "charges"
-			attr: attr
 			api_key: @api_key
-		, (err, res)=>
-			deferred.reject err if err?
-			data = res.data
-			delete res.data
-			charges = {}
-			charges[key] = value for key, value of res
-			charges.data = for charge in data
-				new Charge @api_key, charge
-			deferred.resolve charges
-
-		deferred.promise
+			Class: Charge
+			req: req
+		
 
 module.exports = Charge
