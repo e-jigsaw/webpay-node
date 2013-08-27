@@ -1,5 +1,4 @@
 Q = require "q"
-request = require "../util/request"
 all = require "../util/all"
 Base = require "./base"
 
