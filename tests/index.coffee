@@ -35,23 +35,22 @@ describe "index", ->
 		
 		describe "#create", ->
 			it "should send new charge", (done)->
-				webpay.charge.create(testCustomer).done (charge)->
+				webpay.charge.create(testCustomer)
+				.done (charge)->
 					charge.paid.should.be.true
 					id = charge.id
 					done()
 
 		describe "#retrieve", ->
 			it "should get charged info", (done)->
-				webpay.charge.retrieve
-					id: id
+				webpay.charge.retrieve(id)
 				.done (charge)->
 					charge.id.should.eql id
 					done()
 
 		describe "#refund", ->
 			it "should refund charge", (done)->
-				webpay.charge.retrieve
-					id: id
+				webpay.charge.retrieve(id)
 				.then (charge)-> charge.refund()
 				.done (charge)->
 					charge.id.should.eql id
@@ -61,12 +60,12 @@ describe "index", ->
 			before (done)->
 				captureTestCustomer = testCustomer
 				captureTestCustomer.capture = false
-				webpay.charge.create(captureTestCustomer).done (charge)->
+				webpay.charge.create(captureTestCustomer)
+				.done (charge)->
 					id = charge.id
 					done()
 			it "should captured charge", (done)->
-				webpay.charge.retrieve
-					id: id
+				webpay.charge.retrieve(id)
 				.then (charge)-> charge.capture()
 				.done (charge)->
 					charge.id.should.eql id
@@ -74,7 +73,8 @@ describe "index", ->
 
 		describe "#all", ->
 			it "should get charged list", (done)->
-				webpay.charge.all().done (charges)->
+				webpay.charge.all()
+				.done (charges)->
 					charges.object.should.eql "list"
 					done()
 
@@ -85,23 +85,22 @@ describe "index", ->
 
 		describe "#create", ->
 			it "should create customer", (done)->
-				webpay.customer.create().done (customer)->
+				webpay.customer.create()
+				.done (customer)->
 					customer.should.have.property "id"
 					id = customer.id
 					done()
 
 		describe "#retrieve", ->
 			it "should get customer infomation", (done)->
-				webpay.customer.retrieve
-					id: id
+				webpay.customer.retrieve(id)
 				.done (customer)->
 					customer.id.should.eql id
 					done()
 
 		describe "#save", ->
 			it "should update customer infomation", (done)->
-				webpay.customer.retrieve
-					id: id
+				webpay.customer.retrieve(id)
 				.then (customer)->
 					customer.email = "test@te.st"
 					customer.save()
@@ -111,8 +110,7 @@ describe "index", ->
 
 		describe "#delete", ->
 			it "should delete customer infomation", (done)->
-				webpay.customer.retrieve
-					id: id
+				webpay.customer.retrieve(id)
 				.then (customer)->
 					customer.delete()
 				.done (res)->
@@ -122,7 +120,8 @@ describe "index", ->
 
 		describe "#all", ->
 			it "should get customers list", (done)->
-				webpay.customer.all().done (customers)->
+				webpay.customer.all()
+				.done (customers)->
 					customers.object.should.eql "list"
 					done()
 
@@ -133,14 +132,16 @@ describe "index", ->
 
 		describe "#create", ->
 			it "should create token", (done)->
-				webpay.token.create(testCard).done (token)->
+				webpay.token.create(testCard)
+				.done (token)->
 					token.should.have.property "id"
 					id = token.id
 					done()
 
 		describe "#retrieve", ->
 			it "should get token infomation", (done)->
-				webpay.token.retrieve(id).done (token)->
+				webpay.token.retrieve(id)
+				.done (token)->
 					token.id.should.eql id
 					done()
 
@@ -151,14 +152,16 @@ describe "index", ->
 
 		describe "#all", ->
 			it "should get events list", (done)->
-				webpay.event.all().done (events)->
+				webpay.event.all()
+				.done (events)->
 					events.data[0].should.have.property "id"
 					id = events.data[0].id
 					done()
 
 		describe "#retrieve", ->
 			it "should get event infomation", (done)->
-				webpay.event.retrieve(id).done (event)->
+				webpay.event.retrieve(id)
+				.done (event)->
 					event.id.should.eql id
 					done()
 
@@ -169,6 +172,7 @@ describe "index", ->
 
 		describe "#retrieve", ->
 			it "should get account infomation", (done)->
-				webpay.account.retrieve().done (account)->
+				webpay.account.retrieve()
+				.done (account)->
 					account.should.have.property "id"
 					done()

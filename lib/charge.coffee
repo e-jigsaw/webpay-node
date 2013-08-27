@@ -4,6 +4,9 @@ all = require "../util/all"
 Base = require "./base"
 
 class Charge extends Base
+	path: "charges"
+	Class: Charge
+
 	create: (req)->
 		deferred = Q.defer()
 
@@ -35,21 +38,6 @@ class Charge extends Base
 			method: "POST"
 			path: "charges"
 			attr: attr
-			api_key: @api_key
-		, (err, res)=>
-			deferred.reject err if err?
-			deferred.resolve new Charge @api_key, res
-
-		deferred.promise
-
-	retrieve: (req)->
-		deferred = Q.defer()
-		
-		deferred.reject new Error "ID is required" if !req?.id?
-			
-		request
-			method: "GET"
-			path: "charges/#{req.id}"
 			api_key: @api_key
 		, (err, res)=>
 			deferred.reject err if err?
