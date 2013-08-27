@@ -1,5 +1,5 @@
 Q = require "q"
-request = require "./request"
+request = require "../util/request"
 
 class Token
 	constructor: (@api_key, res)-> @[key] = value for key, value of res if res?
