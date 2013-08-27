@@ -67,6 +67,7 @@ class Customer extends Base
 
 		deferred.promise
 
+	retrieve: require "../util/retrieve"
 	all: require "../util/all"
 
 module.exports = Customer

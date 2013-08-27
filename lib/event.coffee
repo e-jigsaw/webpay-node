@@ -6,5 +6,6 @@ class Event extends Base
 	Class: Event
 
 	all: require "../util/all"
+	retrieve: require "../util/retrieve"
 
 module.exports = Event

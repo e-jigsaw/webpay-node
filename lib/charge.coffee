@@ -81,7 +81,8 @@ class Charge extends Base
 			deferred.resolve new Charge @api_key, res
 
 		deferred.promise
-
+		
+	retrieve: require "../util/retrieve"
 	all: require "../util/all"
 		
 

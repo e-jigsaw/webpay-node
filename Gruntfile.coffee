@@ -20,6 +20,7 @@ module.exports = (grunt)->
 			util:
 				files:
 					"util/request.js": "util/request.coffee"
+					"util/retrieve.js": "util/retrieve.coffee"
 					"util/all.js": "util/all.coffee"
 				options:
 					bare: true

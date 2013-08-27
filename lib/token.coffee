@@ -29,4 +29,6 @@ class Token extends Base
 
 		deferred.promise
 
+	retrieve: require "../util/retrieve"
+
 module.exports = Token
