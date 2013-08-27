@@ -9,6 +9,7 @@ module.exports = (grunt)->
 					bare: true
 			lib:
 				files:
+					"lib/base.js": "lib/base.coffee"
 					"lib/charge.js": "lib/charge.coffee"
 					"lib/customer.js": "lib/customer.coffee"
 					"lib/token.js": "lib/token.coffee"

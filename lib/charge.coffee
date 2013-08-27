@@ -1,9 +1,8 @@
 Q = require "q"
 request = require "../util/request"
+Base = require "./base"
 
-class Charge
-	constructor: (@api_key, res)-> @[key] = value for key, value of res if res?
-
+class Charge extends Base
 	create: (req)->
 		deferred = Q.defer()
 

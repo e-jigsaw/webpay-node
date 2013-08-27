@@ -1,9 +1,8 @@
 Q = require "q"
 request = require "../util/request"
+Base = require "./base"
 
-class Event
-	constructor: (@api_key, res)-> @[key] = value for key, value of res if res?
-
+class Event extends Base
 	retrieve: (id)->
 		deferred = Q.defer()
 
