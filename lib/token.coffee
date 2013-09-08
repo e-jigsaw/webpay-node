@@ -1,8 +1,10 @@
 Q = require "q"
-request = require "./request"
+request = require "../util/request"
+Base = require "./base"
 
-class Token
-	constructor: (@api_key, res)-> @[key] = value for key, value of res if res?
+class Token extends Base
+	path: "tokens"
+	Class: Token
 
 	create: (req)->
 		deferred = Q.defer()
@@ -27,19 +29,6 @@ class Token
 
 		deferred.promise
 
-	retrieve: (id)->
-		deferred = Q.defer()
-
-		deferred.reject new Error "ID is required" if !id?
-
-		request
-			method: "GET"
-			path: "tokens/#{id}"
-			api_key: @api_key
-		, (err, res)->
-			deferred.reject err if err?
-			deferred.resolve new Token @api_key, res
-
-		deferred.promise
+	retrieve: require "../util/retrieve"
 
 module.exports = Token

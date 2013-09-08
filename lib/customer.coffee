@@ -1,8 +1,10 @@
 Q = require "q"
-request = require "./request"
+request = require "../util/request"
+Base = require "./base"
 
-class Customer
-	constructor: (@api_key, res)-> @[key] = value for key, value of res if res?
+class Customer extends Base
+	path: "customers"
+	Class: Customer
 
 	create: (req)->
 		deferred = Q.defer()
@@ -22,21 +24,6 @@ class Customer
 			method: "POST"
 			path: "customers"
 			attr: attr
-			api_key: @api_key
-		, (err, res)=>
-			deferred.reject err if err?
-			deferred.resolve new Customer @api_key, res
-
-		deferred.promise
-
-	retrieve: (req)->
-		deferred = Q.defer()
-		
-		deferred.reject new Error "ID is required" if !req?.id?
-			
-		request
-			method: "GET"
-			path: "customers/#{req.id}"
 			api_key: @api_key
 		, (err, res)=>
 			deferred.reject err if err?
@@ -80,32 +67,7 @@ class Customer
 
 		deferred.promise
 
-	all: (req)->
-		deferred = Q.defer()
-
-		req = {} if !req?
-
-		attr = {}
-		attr.count = req.count if req.count?
-		attr.offset = req.offset if req.offset?
-		attr.created = req.created if req.created?
-		attr.customer = req.customer if req.customer?
-
-		request
-			method: "GET"
-			path: "customers"
-			attr: attr
-			api_key: @api_key
-		, (err, res)->
-			deferred.reject err if err?
-			data = res.data
-			delete res.data
-			customers = {}
-			customers[key] = value for key, value of res
-			customers.data = for customer in data
-				new Customer @api_key, customer
-			deferred.resolve customers
-
-		deferred.promise
+	retrieve: require "../util/retrieve"
+	all: require "../util/all"
 
 module.exports = Customer

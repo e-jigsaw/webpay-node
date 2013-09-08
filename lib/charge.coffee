@@ -1,8 +1,10 @@
 Q = require "q"
-request = require "./request"
+request = require "../util/request"
+Base = require "./base"
 
-class Charge
-	constructor: (@api_key, res)-> @[key] = value for key, value of res if res?
+class Charge extends Base
+	path: "charges"
+	Class: Charge
 
 	create: (req)->
 		deferred = Q.defer()
@@ -35,21 +37,6 @@ class Charge
 			method: "POST"
 			path: "charges"
 			attr: attr
-			api_key: @api_key
-		, (err, res)=>
-			deferred.reject err if err?
-			deferred.resolve new Charge @api_key, res
-
-		deferred.promise
-
-	retrieve: (req)->
-		deferred = Q.defer()
-		
-		deferred.reject new Error "ID is required" if !req?.id?
-			
-		request
-			method: "GET"
-			path: "charges/#{req.id}"
 			api_key: @api_key
 		, (err, res)=>
 			deferred.reject err if err?
@@ -94,33 +81,9 @@ class Charge
 			deferred.resolve new Charge @api_key, res
 
 		deferred.promise
-
-	all: (req)->
-		deferred = Q.defer()
-
-		req = {} if !req?
-
-		attr = {}
-		attr.count = req.count if req.count?
-		attr.offset = req.offset if req.offset?
-		attr.created = req.created if req.created?
-		attr.customer = req.customer if req.customer?
-
-		request
-			method: "GET"
-			path: "charges"
-			attr: attr
-			api_key: @api_key
-		, (err, res)=>
-			deferred.reject err if err?
-			data = res.data
-			delete res.data
-			charges = {}
-			charges[key] = value for key, value of res
-			charges.data = for charge in data
-				new Charge @api_key, charge
-			deferred.resolve charges
-
-		deferred.promise
+		
+	retrieve: require "../util/retrieve"
+	all: require "../util/all"
+		
 
 module.exports = Charge

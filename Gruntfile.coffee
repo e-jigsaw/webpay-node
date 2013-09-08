@@ -9,12 +9,19 @@ module.exports = (grunt)->
 					bare: true
 			lib:
 				files:
-					"lib/request.js": "lib/request.coffee"
+					"lib/base.js": "lib/base.coffee"
 					"lib/charge.js": "lib/charge.coffee"
 					"lib/customer.js": "lib/customer.coffee"
 					"lib/token.js": "lib/token.coffee"
 					"lib/event.js": "lib/event.coffee"
 					"lib/account.js": "lib/account.coffee"
+				options:
+					bare: true
+			util:
+				files:
+					"util/request.js": "util/request.coffee"
+					"util/retrieve.js": "util/retrieve.coffee"
+					"util/all.js": "util/all.coffee"
 				options:
 					bare: true
 			test:

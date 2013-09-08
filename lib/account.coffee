@@ -1,20 +1,9 @@
-Q = require "q"
-request = require "./request"
+Base = require "./base"
 
-class Account
-	constructor: (@api_key, res)-> @[key] = value for key, value of res if res?
+class Account extends Base
+	path: "account"
+	Class: Account
 
-	retrieve: ->
-		deferred = Q.defer()
-
-		request
-			method: "GET"
-			path: "account"
-			api_key: @api_key
-		, (err, res)=>
-			deferred.reject err if err?
-			deferred.resolve new Account @api_key, res
-
-		deferred.promise
+	retrieve: require "../util/retrieve"
 
 module.exports = Account
