@@ -4,7 +4,7 @@
   "description": "WebPay Node.js bindings https://webpay.jp",
   "main": "index.js",
   "scripts": {
-    "test": "grunt coffee mochacov:coverage" // for travis.ci
+    "test": "grunt coffee mochacov:coverage"
   },
   "repository": "git@github.com:e-jigsaw/webpay-node.git",
   "author": "jigsaw <m@jgs.me>",
