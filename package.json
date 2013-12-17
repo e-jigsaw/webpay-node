@@ -4,7 +4,7 @@
   "description": "WebPay Node.js bindings https://webpay.jp",
   "main": "index.js",
   "scripts": {
-    "test": "grunt coffee mochaTest"
+    "test": "grunt coffee mochacov:coverage" // for travis.ci
   },
   "repository": "git@github.com:e-jigsaw/webpay-node.git",
   "author": "jigsaw <m@jgs.me>",
@@ -13,7 +13,8 @@
     "grunt-contrib-coffee": "~0.7.0",
     "grunt-mocha-test": "~0.8.1",
     "grunt": "~0.4.1",
-    "should": "~2.1.1"
+    "should": "~2.1.1",
+    "grunt-mocha-cov": "~0.1.1"
   },
   "dependencies": {
     "q": "~0.9.6",

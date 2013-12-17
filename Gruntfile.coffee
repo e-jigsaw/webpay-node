@@ -29,16 +29,20 @@ module.exports = (grunt)->
 					"tests/index.js": "tests/index.coffee"
 				options:
 					bare: true
-		mochaTest:
-			index:
-				src: 
-					"tests/index.js"
+		mochacov:
+			coverage:
+				options:
+					coveralls:
+						serviceName: "travis-ci"
+			test:
 				options:
 					reporter: "spec"
+			options:
+				files: "tests/*.js"
 
 		
 	grunt.loadNpmTasks "grunt-contrib-coffee"
-	grunt.loadNpmTasks "grunt-mocha-test"
+	grunt.loadNpmTasks "grunt-mocha-cov"
 
 	grunt.registerTask "c", ["coffee"]
-	grunt.registerTask "t", ["coffee", "mochaTest"]
+	grunt.registerTask "test", ["coffee", "mochacov:test"]
