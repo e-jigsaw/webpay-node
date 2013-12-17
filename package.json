@@ -6,7 +6,7 @@
   "scripts": {
     "test": "grunt coffee mochacov:coverage",
     "blanket": {
-      "pattern": "/!node_modules/"
+      "pattern": ["/lib/", "/util/"]
     }
   },
   "repository": "git@github.com:e-jigsaw/webpay-node.git",
