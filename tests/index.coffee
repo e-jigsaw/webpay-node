@@ -1,4 +1,3 @@
-require "blanket"
 WebPay = require "../index"
 should = require "should"
 
