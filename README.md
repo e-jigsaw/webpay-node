@@ -1,3 +1,7 @@
+# deprecated
+
+see https://github.com/webpay/webpay-node
+
 webpay-node
 ===========
 
